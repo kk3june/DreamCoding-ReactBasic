@@ -13,9 +13,12 @@ function App({ youtube }) {
   };
 
   const search = (query) => {
+    setSelectedVideo(null);
     youtube
       .search(query) //
-      .then((videos) => setVideos(videos));
+      .then((videos) => {
+        setVideos(videos);
+      });
   };
 
   useEffect(() => {
@@ -28,9 +31,11 @@ function App({ youtube }) {
     <div className={styles.app}>
       <SearchHeader onSearch={search} />
       <section className={styles.content}>
-        <div className={styles.detail}>
-          {selectedVideo && <VideoDetail video={selectedVideo} />}
-        </div>
+        {selectedVideo && (
+          <div className={styles.detail}>
+            <VideoDetail video={selectedVideo} />
+          </div>
+        )}
         <div className={styles.list}>
           <VideoList
             videos={videos}
